@@ -1,9 +1,17 @@
 const validateCreateTodo = (req, res, next) => {
-  const { title, dueDate, reminder } = req.body;
+  const { title, dueDate, reminder, color, board } = req.body;
 
   // title validation
   if (!title || typeof title !== "string" || title.trim() === "") {
     return res.status(400).json({ error: "Title is required" });
+  }
+
+  if (color !== undefined && typeof color !== "string") {
+    return res.status(400).json({ error: "Invalid color format" });
+  }
+
+  if (board !== undefined && typeof board !== "string") {
+    return res.status(400).json({ error: "Invalid board name" });
   }
 
   // dueDate validation
@@ -26,7 +34,7 @@ const validateCreateTodo = (req, res, next) => {
 };
 
 const validateUpdateTodo = (req, res, next) => {
-  const { title, completed, dueDate, reminder } = req.body;
+  const { title, completed, dueDate, reminder, color, board } = req.body;
 
   if (title !== undefined && (typeof title !== "string" || title.trim() === "")) {
     return res.status(400).json({ error: "Invalid title" });
@@ -34,6 +42,14 @@ const validateUpdateTodo = (req, res, next) => {
 
   if (completed !== undefined && typeof completed !== "boolean") {
     return res.status(400).json({ error: "Completed must be boolean" });
+  }
+
+  if (color !== undefined && typeof color !== "string") {
+    return res.status(400).json({ error: "Invalid color format" });
+  }
+
+  if (board !== undefined && typeof board !== "string") {
+    return res.status(400).json({ error: "Invalid board name" });
   }
 
   if (dueDate) {

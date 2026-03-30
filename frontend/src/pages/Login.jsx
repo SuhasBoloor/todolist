@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogIn, Mail, Lock } from 'lucide-react';
+import { LogIn, Mail, Lock, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ThemeToggle from '../components/ThemeToggle';
 
@@ -25,32 +25,32 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-body">
-      <div className="absolute top-6 right-6">
+      <div className="fixed top-8 right-8 z-[100]">
         <ThemeToggle />
       </div>
       
       <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="glass-card w-full max-w-md p-8 sm:p-12"
+        initial={{ opacity: 0, y: 40, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ type: "spring", stiffness: 100, damping: 20 }}
+        className="pinterest-card w-full max-w-md p-10 sm:p-14"
       >
-        <div className="flex flex-col items-center mb-8">
-          <div className="p-4 bg-primary/10 rounded-3xl mb-6 shadow-inner">
-            <LogIn className="w-10 h-10 text-primary" />
+        <div className="flex flex-col items-center mb-10">
+          <div className="w-16 h-16 bg-primary rounded-[2rem] flex items-center justify-center shadow-lg transform rotate-6 hover:rotate-12 transition-transform duration-300">
+            <CheckCircle className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-3xl font-bold tracking-tight">Welcome Back</h1>
-          <p className="text-text-muted mt-2">Sign in to your premium dashboard</p>
+          <h1 className="text-4xl font-bold tracking-tight mt-8">Focus Pin</h1>
+          <p className="text-text-muted mt-3 text-lg">Log in to your pinboard</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-semibold text-text-muted ml-1">Email Address</label>
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="flex flex-col gap-3">
+            <label className="text-sm font-bold text-text-muted ml-2 uppercase tracking-widest">Email Pin</label>
             <div className="relative group">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted group-focus-within:text-primary transition-colors" />
+              <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted group-focus-within:text-primary transition-colors duration-300" />
               <input 
                 type="email" 
-                className="input-field pl-12" 
+                className="input-minimal pl-14 py-4" 
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -59,13 +59,13 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-semibold text-text-muted ml-1">Password</label>
+          <div className="flex flex-col gap-3">
+            <label className="text-sm font-bold text-text-muted ml-2 uppercase tracking-widest">Secret Pin</label>
             <div className="relative group">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted group-focus-within:text-primary transition-colors" />
+              <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted group-focus-within:text-primary transition-colors duration-300" />
               <input 
                 type="password" 
-                className="input-field pl-12" 
+                className="input-minimal pl-14 py-4" 
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -76,24 +76,24 @@ const Login = () => {
 
           {error && (
             <motion.div 
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-sm text-center font-medium"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="p-4 bg-red-500/10 border border-red-500/20 rounded-[1rem] text-red-500 text-sm text-center font-bold"
             >
               {error}
             </motion.div>
           )}
 
-          <button type="submit" className="btn-primary w-full py-4 text-base mt-4 shadow-lg shadow-primary/20">
+          <button type="submit" className="btn-pinterest w-full py-5 text-xl mt-6 shadow-2xl hover:shadow-primary/40 transition-all duration-300">
             Sign In
           </button>
         </form>
 
-        <div className="mt-8 pt-8 border-t border-border-color">
-          <p className="text-center text-text-muted text-sm">
-            Don't have an account?{' '}
-            <Link to="/signup" className="text-primary hover:text-primary-hover font-bold transition-colors">
-              Create one now
+        <div className="mt-12 pt-10 border-t border-border-color">
+          <p className="text-center text-text-muted font-medium">
+            New here?{' '}
+            <Link to="/signup" className="text-primary hover:text-primary-hover font-black text-lg transition-colors ml-1 decoration-primary underline-offset-4 hover:underline">
+              Join the Board
             </Link>
           </p>
         </div>
